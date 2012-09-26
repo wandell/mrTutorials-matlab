@@ -2,9 +2,9 @@ function xygrid = kspaceGrid(k)
 % Create a grid of x,y values (in meters) to represent voxel positions.
 % This grid will have the resolution of our oringinal image, not
 % necessarily the resolution of our reconned image. This is because if we
-% are doing non-cartesian imaging (e.g., spiral), we will want to sample the
-% non-cartesian points in k-space at a high resolution to reduce sampling
-% artifacts.
+% are doing non-cartesian imaging (e.g., spiral), we will want to sample
+% the non-cartesian points in k-space at a high resolution to reduce
+% sampling artifacts.
 %
 %  xygrid = kspaceGrid(k)
 %

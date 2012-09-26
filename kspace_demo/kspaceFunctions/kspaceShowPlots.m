@@ -17,9 +17,7 @@ kspace = kspaceRecon(kspace, params);
 % ********************************
 
 % set up plots and subplots
-rows = 3; cols = 2; n = 1;
-%rows = 5; cols = 2; n = 1;
-
+rows = 3; cols = 4; n = 1;
 
 % Check to see if this is the first time we are plotting this recon. If so,
 % we will need to set up the plots. If not, we can skip some steps.
@@ -32,12 +30,17 @@ else
     set(f, 'UserData', userData);
 end
 
-if initialize, figure(f); colormap (gray); end
+if initialize, 
+    figure(f); clf; 
+    colormap (gray); 
+end
+
 figure(f)
+
 %-----------------------------------
 % Plot 1: kspace filled by imaging
 %-----------------------------------
-subplot(rows,cols,n);n= n+1;
+subplot(rows,cols,1)
 tmp = fftshift(log(abs((kspace.grid.real + 1i*kspace.grid.imag))));
 x = fftshift(kspace.grid.x);
 y = fftshift(kspace.grid.y);
@@ -47,8 +50,8 @@ if ma <= mi, ma = 1; mi = 0; end
 set(gca, 'CLim', [mi ma]);
 if initialize,
     cla
-    axis image;
     imagesc(x(:), y(:), tmp);
+    axis image square;    
     title('kspace filled by imaging')
     xlabel('cycles per meter'); ylabel('cycles per meter')
     hold on;
@@ -59,8 +62,7 @@ end
 %-----------------------------------
 % Plot 2: image reconned from kspace
 %-----------------------------------
-subplot(rows,cols,n);n= n+1;
-
+subplot(rows,cols,2);
 recon = abs(ifft2(kspace.grid.real + 1i*kspace.grid.imag));
 imsize = [0 params.imSize*100];
 if initialize,
@@ -84,8 +86,7 @@ end
 %-----------------------------------
 % Plot 3: kspace computed from image
 %-----------------------------------
-subplot(rows,cols,n);n= n+1;
-
+subplot(rows,cols,5)
 imagesc(x(:), y(:), im.fftshift);
 if initialize,
     cla
@@ -98,7 +99,7 @@ end
 %-----------------------------------
 % Plot 4: Original Image
 %-----------------------------------1
-subplot(rows,cols,n);n= n+1;
+subplot(rows,cols,6)
 if initialize,
     cla
     imagesc(imsize, imsize, im.orig);
@@ -124,19 +125,22 @@ end
 %-----------------------------------
 % Plot 5: Sinusoidal spin channel
 %-----------------------------------
-subplot(rows,cols,n);n= n+1;
-imagesc(real(spins.total));
+subplot(rows,cols,9);
 if initialize, 
     cla
-    axis image off; hold on; 
+    imagesc(real(spins.total));        
+    
+    axis image;
     title(sprintf('REAL: x=%2.1f cpm, y=%2.1f cpm', kspace.vector.x(t), kspace.vector.y(t)));
+    hold on
+else
+    imagesc(real(spins.total));
 end
 
 % ********************************
 % B0 Map
 % ********************************
-subplot(rows,cols,n);
-
+subplot(rows,cols,10);
 if initialize,
     cla
     imagesc(imsize, imsize, b0noise)
@@ -156,9 +160,8 @@ else
     imagesc(imsize, imsize, b0noise)
 end
 
-%drawnow;
 %%
-figure(f+1)
+%figure(f+1)
 % %-----------------------------------
 % % Plot 6: Cosinusoidal spin channel
 % %-----------------------------------
@@ -170,7 +173,7 @@ figure(f+1)
 %-----------------------------------
 % Gradients
 %-----------------------------------
-subplot(2,1,1)
+subplot(rows,cols,3:4)
 if initialize,
     cla
     axis tight ; 
@@ -182,7 +185,7 @@ end
 plot([0 cumsum(gradients.T(1:t))], [gradients.y(1) gradients.y(1:t)], 'g-', 'LineWidth', 1);
 
 
-subplot(2,1,2)
+subplot(rows,cols,7:8)
 if initialize,
     cla
     axis tight ; 

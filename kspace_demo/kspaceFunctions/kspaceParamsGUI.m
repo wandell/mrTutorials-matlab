@@ -102,13 +102,6 @@ dlg(end).value      = false;
 dlg(end).fieldName  = 'showProgress';
 if ~isempty(params), dlg(end).value = params.showProgress; end
 
-% loop
-dlg(end+1).style    = 'checkbox';
-dlg(end).string     = 'Keep GUI open?';
-dlg(end).value      = 1;
-dlg(end).fieldName  = 'loop';
-if ~isempty(params), dlg(end).value = params.loop; end
-
 % sequenceType
 dlg(end+1).style    = 'popup';
 dlg(end).string     = 'Kspace trajectory';
@@ -143,7 +136,7 @@ if ~isempty(params), dlg(end).value = params.FOV * 10^3; end
 dlg(end+1).style    = 'number';
 dlg(end).fieldName  = 'res';
 dlg(end).string     = 'Pixel Size, reconned image, mm';
-dlg(end).value      =  2;
+dlg(end).value      =  6;
 if ~isempty(params), dlg(end).value = params.res * 10^3; end
 
 % imSize
@@ -159,15 +152,6 @@ dlg(end).fieldName  = 'imRes';
 dlg(end).string     = 'Pixel Size, original image, mm';
 dlg(end).value      = 1;
 if ~isempty(params), dlg(end).value = params.imRes * 10^3; end
-
-% dt (dwell time) is now computed based on pixel bandwidth, and so cannot
-% be set directly by the user.
-% % dt
-% dlg(end+1).style    = 'number';
-% dlg(end).fieldName  = 'dt';
-% dlg(end).string     = 'Dwell time (per kspace sample, microseconds)';
-% dlg(end).value      =  7;
-% if ~isempty(params), dlg(end).value = params.dt * 10^6; end
 
 % pixel bandwith (Hz)
 dlg(end+1).style    = 'number';

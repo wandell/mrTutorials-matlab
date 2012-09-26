@@ -78,6 +78,4 @@ if ~params.showProgress, close(waitHandle); end
 % Save Data
 kspaceSetUserData(f, params, im, kspace, spins, gradients, xygrid, M);
 
-if params.loop, params = kspaceDemo(params); end
-
 end

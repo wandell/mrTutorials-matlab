@@ -4,5 +4,5 @@ function f = kspacePrepareFigure
 % to figure(1). Return f, the figure window.
 %
 f = 1; figure(f); 
-scrsz = get(0,'ScreenSize'); scrsz(3) = scrsz(4) / 2;
+scrsz = get(0,'ScreenSize'); 
 set(f, 'Position',scrsz)
