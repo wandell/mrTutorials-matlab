@@ -31,6 +31,12 @@ function javaFigs = mrvJavaFeature(javaFigs)
 % Matlab native GUI code, so we can dispense with these duplicate
 % functions.
 
+javaFigs = [];
+return
+
+
+
+
 % If the person sent in a javaFigs variable, they want us to restore
 if notDefined('javaFigs'), javaFigs = []; 
 else feature('javafigures',javaFigs); return;
